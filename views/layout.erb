@@ -1,18 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>slidesync</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-  <script src="http://js.pusherapp.com/1.9/pusher.min.js"></script>
-  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
-  <script>
-    window.pusher_key = '<%=h Pusher.key %>';
-  </script>
-  <script src="/javascripts/script.js"></script>
-</head>
-<body>
-<%= yield %>
-</body>
+<!DOCTYPE HTML>
+<!--[if lt IE 7 ]> <html lang="ja" class="ie6 ie"> <![endif]-->
+<!--[if IE 7 ]> <html lang="ja" class="ie7 ie"> <![endif]-->
+<!--[if IE 8 ]> <html lang="ja" class="ie8 ie"> <![endif]-->
+<!--[if IE 9 ]> <html lang="ja" class="ie9 ie"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="jn"> <!--<![endif]-->
+  <head>
+    <meta charset="UTF-8">
+    <title>slidesync</title>
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /><!-- IEの表示モード -->
+    <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
+  </head>
+  <body>
+    <!-- container -->
+    <div id="container">
+      <!-- header -->
+      <div id="header">
+      </div>
+      <!-- main -->
+      <div id="main">
+
+        <%= yield %>
+
+      </div>
+      <!-- footer -->
+      <div id="footer">
+      </div>
+    </div>
+    <!-- javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script src="http://js.pusherapp.com/1.9/pusher.min.js"></script>
+    <script>
+      window.pusher_key = '<%=h Pusher.key %>';
+    </script>
+    <script src="/javascripts/script.js"></script>
+  </body>
 </html>
