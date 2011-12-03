@@ -18,3 +18,9 @@ end
 get '/' do
   erb :index
 end
+
+# GET /test?message=helloworld
+get '/test' do
+  message = params[:message]
+  Pusher['test_channel'].trigger('my_event', message)
+end
