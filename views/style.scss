@@ -143,11 +143,11 @@ body {
   @include linear-gradient( #191c1d #121212 );
   box-sizing:border-box;
   overflow:hidden;
-  //text-align:center;
+  text-align:center;
 
   #logo {
-    //display:inline-block;
-    float:right;
+    display:inline-block;
+    //float:right;
 
     letter-spacing:0.1em;
     font-size:0.9em;
