@@ -105,7 +105,7 @@ get '/style.css' do
 end
 
 get '/' do
-  erb :index, locals: {slide_id: nil, slide: {}}
+  erb :index, locals: {slide_id: nil, slide: {}, is_owner: false}
 end
 
 post '/slide' do
@@ -138,10 +138,12 @@ get '/slide/:slide_id' do
 
   # 閲覧者を取得
   members = DB.zrange("Room:#{slide[:id]}", 0, -1)
+  is_owner = false
+  is_owner = true if members[0] == current_user.uid
   members.map!{|uid| User.get(uid)}
 
   # slideの情報やユーザーの情報を取得してviewに渡す
-  erb :index, locals: {slide_id: slide_id, slide: slide, members: members}
+  erb :index, locals: {slide_id: slide_id, slide: slide, members: members, is_owner: is_owner}
 end
 
 get '/auth/twitter/callback' do

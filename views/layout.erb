@@ -31,8 +31,9 @@
             </form>
           </div>
           <ul id="memberList">
-            <li class="owner">@satococoa</li>
-            <li>@saucerjp</li>
+            <% members.each_with_index do |user, i| %>
+              <li<%=' class="owner"' if i==0 %>>@<%=h user.nickname %></li>
+            <% end %>
           </ul>
         <% else %>
           <div>
