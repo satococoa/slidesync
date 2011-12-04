@@ -61,6 +61,13 @@
     box-shadow: $arg; // opera10.5~
   }
 }
+@mixin box-shadow-inset( $arg: none ) {
+  @if $arg != none {
+    -moz-box-shadow: $arg inset; // firefox
+    -webkit-box-shadow: $arg inset; // chrome, safari
+    box-shadow: $arg inset; // opera10.5~
+  }
+}
 // ********************
 // border-radius
 // ********************
