@@ -29,4 +29,6 @@ $(function() {
   function updateSlideNumber(){
     document.getElementById("slidenumber").value = flashMovie.getCurrentSlide();
   }
+
+  loadPlayer(window.slide_doc);
 });

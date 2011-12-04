@@ -9,6 +9,4 @@ $(function() {
   channel.bind('my_event', function(data) {
     alert(data);
   });
-
-  loadPlayer(window.slide_doc);
 });
