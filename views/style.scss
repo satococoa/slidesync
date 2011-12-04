@@ -40,6 +40,8 @@ $color:#b7b8b8;
   //@include box-shadow( 0 0 0 #000 );
   border-top:0;
   padding:0.2em 1em;
+  text-decoration:none;
+  color:#666;
   @include input-bg-style;
 }
 
@@ -106,6 +108,7 @@ a:focus { // tabキーで選択時 except IE6,7 safari
 body {
   color:#fff;
   font-family: $web-font;
+  overflow:hidden;
   background: {
     image:url(#{$imagesFolderPath}stage_bg.png);
     repeat:repeat;
@@ -121,6 +124,13 @@ body {
 // ********************
 // #header
 // ********************
+#headerIframe {
+  position:fixed;
+  z-index:99;
+  bottom:0;
+  width:100%;
+  height:40px;
+}
 #header {
   position:fixed;
   z-index:100;
@@ -151,11 +161,10 @@ body {
 // ********************
 $sidebarMargin:0 10px;
 #sidebar {
-  color:#333;
   float:left;
   width:200px;
   height:100%;
-  background:#999;
+  background:rgba( 255,255,255,0.1 );
   @include box-shadow-inset( -1px 0 5px #000 );
 
   & > div {
@@ -165,13 +174,22 @@ $sidebarMargin:0 10px;
 
   // login
   #login {
+    display:block;
+    text-align:center;
+    padding:1em !important;
+    @include button-bg-style;
+    &:hover {
+      @include button-bg-style-hover;
+    }
   }
   // search
   #search {
+    width:100%;
     color:#333;
   }
   // memberList
   #memberList {
+    font-size:0.8em;
     overflow-y:auto;
     overflow-x:hidden;
     margin:$sidebarMargin;
@@ -179,6 +197,11 @@ $sidebarMargin:0 10px;
     //position:absolute;
     //top:2em;
     //bottom:2.5em;
+    li {
+      padding:1em 0;
+      border-top:1px solid #666;
+      border-bottom:1px solid #222;
+    }
   }
   // owner
   .owner {
@@ -199,16 +222,38 @@ $sidebarMargin:0 10px;
     // ********************
     // #slide
     // ********************
+    #wrapSlide {
+      overflow:hidden;
+      float:left;
+      width:600px;
+      height:462px;
+    }
     #slide {
-      width:300px;
-      height:100px;
+      width:600px;
+      height:500px;
       background:#ccc;
       @include box-shadow( 0 1px 4px #000 );
+    }
+
+    dl {
+      margin-left:39em;
+      dd {
+        margin-bottom:1em;
+      }
+      dt {
+      }
     }
   }
   // ********************
   // #controller
   // ********************
+  #controllerIframe {
+    position:absolute;
+    right:2em;
+    bottom:4em;
+    height:27px;
+    width:294px;
+  }
   #controller {
     position:absolute;
     right:2em;
@@ -222,8 +267,6 @@ $sidebarMargin:0 10px;
 
       &:hover {
         @include button-bg-style-hover;
-        color:#666;
-        text-decoration:none;
       }
     }
 
