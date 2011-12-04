@@ -227,12 +227,12 @@ $sidebarMargin:0 10px;
       float:left;
       width:600px;
       height:462px;
+      @include box-shadow( 0 1px 10px #000 );
     }
     #slide {
       width:600px;
       height:500px;
       background:#ccc;
-      @include box-shadow( 0 1px 4px #000 );
     }
 
     dl {
