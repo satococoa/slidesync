@@ -1,10 +1,14 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
     backports (2.3.0)
     crack (0.1.8)
     eventmachine (0.12.10)
     hashie (1.2.0)
+    i18n (0.6.0)
     multi_json (1.0.4)
     oauth (0.4.5)
     omniauth (1.0.1)
@@ -47,6 +51,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_support
+  i18n
   omniauth
   omniauth-twitter
   pusher
