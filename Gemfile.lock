@@ -16,6 +16,7 @@ GEM
     rack-test (0.6.1)
       rack (>= 1.0)
     ruby-hmac (0.4.0)
+    sass (3.1.11)
     signature (0.1.2)
       ruby-hmac
     sinatra (1.3.1)
@@ -36,5 +37,6 @@ PLATFORMS
 
 DEPENDENCIES
   pusher
+  sass
   sinatra
   sinatra-contrib

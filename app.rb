@@ -15,6 +15,10 @@ helpers do
   alias_method :h, :escape_html
 end
 
+get '/style.css' do
+  scss :style
+end
+
 get '/' do
   erb :index
 end
