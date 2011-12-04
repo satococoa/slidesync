@@ -24,7 +24,10 @@
       <!-- sidebar -->
       <div id="sidebar">
         <% if logged_in? %>
-          <input type="search" id="search" placeholder="Slide ID">
+          <%=h current_user.nickname %>
+          <form method="post" action="/slide">
+            <input type="search" id="search" name="slide_id" placeholder="Slide ID" value="<%=h slide_id.presence %>">
+          </form>
           <ul id="memberList">
             <li class="owner">@satococoa</li>
             <li>@saucerjp</li>
@@ -108,6 +111,7 @@
     <script src="http://js.pusherapp.com/1.9/pusher.min.js"></script>
     <script>
       window.pusher_key = '<%=h Pusher.key %>';
+      window.slide_doc  = '<%=h slide[:doc].presence %>';
     </script>
     <script src="/javascripts/script.js"></script>
   </body>
