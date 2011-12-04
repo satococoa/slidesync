@@ -20,6 +20,7 @@ end
 
 class User
   attr_accessor :uid, :nickname, :image
+
   def initialize(hash)
     @uid      = hash['uid']
     @nickname = hash['nickname']
@@ -30,6 +31,22 @@ class User
      nickname: @nickname,
      image: @image}
   end
+  def save
+    DB.set("User:#{@uid}", to_hash)
+  end
+  def self.create(hash)
+    user = self.new(hash)
+    user.save
+    user
+  end
+  def self.get(uid)
+    hash = DB.get("User:#{uid}")
+    if hash.present?
+      self.new(hash) 
+    else
+      nil
+    end
+  end
 end
 
 helpers do
@@ -37,11 +54,11 @@ helpers do
   alias_method :h, :escape_html
 
   def login(auth)
-    hash = {uid: auth['uid'],
-            nickname: auth['info']['nickname'],
-            image: auth['info']['image']}
-    user = User.get_or_create(hash)
-    session[uid] = user.uid
+    hash = {'uid' => auth['uid'],
+            'nickname' => auth['info']['nickname'],
+            'image' => auth['info']['image']}
+    user = User.create(hash)
+    session[:uid] = user.uid
   end
   def logged_in?
     session[:uid].present?
@@ -56,7 +73,6 @@ get '/style.css' do
 end
 
 get '/' do
-  pp session
   erb :index
 end
 
