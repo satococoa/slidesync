@@ -32,8 +32,9 @@
             </form>
           </div>
           <ul id="memberList">
-            <li class="owner">@satococoa</li>
-            <li>@saucerjp</li>
+            <% members.each_with_index do |user, i| %>
+              <li<%=' class="owner"' if i==0 %>>@<%=h user.nickname %></li>
+            <% end %>
           </ul>
         <% else %>
           <div>
@@ -59,6 +60,7 @@
     <script>
       window.pusher_key = '<%=h Pusher.key %>';
       window.slide_doc  = '<%=h slide[:doc].presence %>';
+      window.slide_id   = '<%=h slide[:id].presence %>';
     </script>
     <script src="/javascripts/script.js"></script>
     <script src="/javascripts/socket.js"></script>

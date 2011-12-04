@@ -17,7 +17,13 @@ configure do
     provider :twitter, oauth_conf['key'], oauth_conf['secret']
   end
   
-  DB = Redis.new
+  if development?
+    DB = Redis.new
+  else
+    uri = URI.parse(ENV['REDISTOGO_URL'])
+    DB = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  end
+
   slide_conf = YAML::load_file('./config/slideshare.yml')
   Slide = SlideShare::Base.new(api_key: slide_conf['key'], shared_secret: slide_conf['secret'])
 end
@@ -105,7 +111,7 @@ get '/style.css' do
 end
 
 get '/' do
-  erb :index, locals: {slide_id: nil, slide: {}}
+  erb :index, locals: {slide_id: nil, slide: {}, is_owner: false}
 end
 
 post '/slide' do
@@ -138,10 +144,20 @@ get '/slide/:slide_id' do
 
   # 閲覧者を取得
   members = DB.zrange("Room:#{slide[:id]}", 0, -1)
+  is_owner = false
+  is_owner = true if members[0] == current_user.uid
   members.map!{|uid| User.get(uid)}
 
   # slideの情報やユーザーの情報を取得してviewに渡す
-  erb :index, locals: {slide_id: slide_id, slide: slide, members: members}
+  erb :index, locals: {slide_id: slide_id, slide: slide, members: members, is_owner: is_owner}
+end
+
+put '/slide/:id/:page' do
+  page = params[:page]
+  if page != 'last'
+    page = page.to_i
+  end
+  Pusher[params[:id]].trigger('jump_to', page)
 end
 
 get '/auth/twitter/callback' do
