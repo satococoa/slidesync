@@ -77,6 +77,17 @@ helpers do
   def logout
     session.clear
   end
+  def exit_room(user)
+    room_id = session[:current_room_id]
+    return if room_id.nil? || user.nil?
+    key = "Room:#{room_id}"
+    DB.zrem(key, user.uid)
+  end
+  def enter_room(room_id, user)
+    key = "Room:#{room_id}"
+    DB.zadd(key, DB.zcount(key, '-inf', '+inf'), user.uid)
+    session[:current_room_id] = room_id
+  end
 end
 
 module SlideShare
@@ -114,19 +125,23 @@ get '/slide/:slide_id' do
   end
 
   res = Slide.slideshows.find_by_url(slide_id, detailed: true)
-  slide = res['Slideshow']
+  slide_data = res['Slideshow']
+
+  slide = {id: slide_data['ID'],
+          doc: slide_data['PPTLocation'],
+          title: slide_data['Title'],
+          desc: slide_data['Description']}
+
+  # 入退室
+  exit_room(current_user)
+  enter_room(slide[:id], current_user)
 
   # 閲覧者を取得
-  # room = Room.new(slide['ID'])
-  # room.enter(current_user)
-  # members = room.members
+  members = DB.zrange("Room:#{slide[:id]}", 0, -1)
+  members.map!{|uid| User.get(uid)}
 
   # slideの情報やユーザーの情報を取得してviewに渡す
-  erb :index, locals: {slide_id: slide_id,
-                       slide: {id: slide['ID'],
-                               doc: slide['PPTLocation'],
-                               title: slide['Title'],
-                               desc: slide['Description']}}
+  erb :index, locals: {slide_id: slide_id, slide: slide, members: members}
 end
 
 get '/auth/twitter/callback' do
@@ -142,6 +157,7 @@ end
 
 # 本運用では必要ないかもしれないがデバッグ用に
 get '/logout' do
+  exit_room(current_user)
   logout
   redirect to('/')
 end
