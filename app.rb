@@ -1,5 +1,7 @@
 # coding: utf-8
 require 'yaml'
+require 'json'
+require 'uri'
 require 'pp'
 require 'sinatra/reloader' if development?
 
@@ -16,6 +18,8 @@ configure do
   end
   
   DB = Redis.new
+  slide_conf = YAML::load_file('./config/slideshare.yml')
+  Slide = SlideShare::Base.new(api_key: slide_conf['key'], shared_secret: slide_conf['secret'])
 end
 
 class User
@@ -31,8 +35,11 @@ class User
      nickname: @nickname,
      image: @image}
   end
+  def to_json
+    to_hash.to_json
+  end
   def save
-    DB.set("User:#{@uid}", to_hash)
+    DB.set("User:#{@uid}", to_json)
   end
   def self.create(hash)
     user = self.new(hash)
@@ -42,7 +49,7 @@ class User
   def self.get(uid)
     hash = DB.get("User:#{uid}")
     if hash.present?
-      self.new(hash) 
+      self.new(JSON::parse(hash))
     else
       nil
     end
@@ -60,6 +67,10 @@ helpers do
     user = User.create(hash)
     session[:uid] = user.uid
   end
+  def current_user
+    return nil unless logged_in?
+    User.get(session[:uid])
+  end
   def logged_in?
     session[:uid].present?
   end
@@ -68,21 +79,54 @@ helpers do
   end
 end
 
+module SlideShare
+  class Slideshows
+    def find_by_url(url, options = {})
+      detailed = convert_to_number(options.delete(:detailed))
+      options[:detailed] = detailed unless detailed.nil?
+      base.send :get, "/get_slideshow", options.merge(:slideshow_url => url)
+    end
+  end
+end
+
 get '/style.css' do
   scss :style
 end
 
 get '/' do
-  erb :index
+  erb :index, locals: {slide: {}}
+end
+
+post '/slide' do
+  slide_id = Rack::Utils.escape(params[:slide_id])
+  if slide_id.nil?
+    redirect to('/')
+  end
+  redirect to("/slide/#{slide_id}")
 end
 
 get '/slide/:slide_id' do
   # ログインしていない場合はトップへ
   redirect to('/') unless logged_in?
+  slide_id = Rack::Utils.unescape(params[:slide_id])
+  if slide_id.nil?
+    redirect to('/')
+  end
+
+  res = Slide.slideshows.find_by_url(slide_id, detailed: true)
+  slide = res['Slideshow']
+
+  # 閲覧者を取得
+  # room = Room.new(slide['ID'])
+  # room.enter(current_user)
+  # members = room.members
 
   # slideの情報やユーザーの情報を取得してviewに渡す
-
-  erb :index
+  erb :index, locals: {slide:
+                       {id: slide['ID'],
+                        doc: slide['PPTLocation'],
+                        title: slide['Title'],
+                        desc: slide['Description']}}
 end
 
 get '/auth/twitter/callback' do
