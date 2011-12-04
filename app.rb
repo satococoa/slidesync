@@ -94,7 +94,7 @@ get '/style.css' do
 end
 
 get '/' do
-  erb :index, locals: {slide: {}}
+  erb :index, locals: {slide_id: nil, slide: {}}
 end
 
 post '/slide' do
