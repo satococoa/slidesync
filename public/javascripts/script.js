@@ -31,4 +31,29 @@ $(function() {
   }
 
   loadPlayer(window.slide_doc);
+
+  // memberListHeight
+  var memberListHeight = function() {
+    var $sidebar = $( '#sidebar' );
+    var $memberList = $( '#memberList' );
+
+    var setHeight = function() {
+      var winHeight = $( window ).height();
+      var headerHeight = $( '#header' ).outerHeight();
+      var searchAndLogin = $sidebar.find( 'div:first' ).outerHeight();
+      var listHeight = winHeight - headerHeight - searchAndLogin;
+      $memberList.css({
+        height: listHeight + 'px'
+      });
+    };
+    setHeight();
+
+    $( window ).resize(function() {
+      setHeight();
+    });
+  };
+  memberListHeight();
+
+
+
 });
