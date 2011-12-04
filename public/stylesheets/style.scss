@@ -12,4 +12,140 @@
  * url   : 
  */
 
+// ********************
+// default
+// ********************
+html,
+body {
+  width:100%;
+  height:100%;
+}
+body,
+pre,
+button,
+input,
+select,
+label,
+textarea {
+  font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS UI Gothic',sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+ul,
+ol {
+  margin-left:0;
+}
+li {
+  list-style-type:none;
+  padding-left:0;
+}
+// ********************
+// @ Anchor
+// ********************
+a,
+address a { // リンク
+  outline:none;
+  text-decoration:none;
+  color:#05c; // 彩度の低いリンク色
+}
+a:hover,
+address a:hover { // マウスオーバー時
+  text-decoration:underline;
+  color:#0bf; // 爽やかなリンク色
+}
+a:focus { // tabキーで選択時 except IE6,7 safari
+  text-decoration:underline;
+  color:#000;
+  //background-color:#8cf!important;
+  outline:1px solid #8cf!important;
+  outline-offset:-2px; // except IE
+}
+// ********************
+// $
+// ********************
+$imagesFolderPath:images/;
+$web-font: 'Ubuntu', sans-serif;
 
+// ********************
+// body
+// ********************
+body {
+  background: {
+    image:url(#{$imagesFolderPath}stage_bg.png);
+    repeat:repeat;
+    position:0 0;
+  }
+}
+// ********************
+// #container
+// ********************
+#container {
+}
+// ********************
+// #header
+// ********************
+#header {
+  #logo {
+    font-family: $web-font;
+  }
+}
+// ********************
+// #sidebar
+// ********************
+#sidebar {
+  // login
+  #login {
+  }
+  // search
+  #search {
+  }
+  // memberList
+  #memberList {
+  }
+  // owner
+  .owner {
+  }
+}
+// ********************
+// #main
+// ********************
+#main {
+
+  // ********************
+  // #stage
+  // ********************
+  #stage {
+
+    // ********************
+    // #slide
+    // ********************
+    #slide {
+    }
+  }
+  // ********************
+  // #controller
+  // ********************
+  #controller {
+    a {
+    }
+
+    #first {
+    }
+    #prev {
+    } 
+    #goto {
+    }
+    #next {
+    }
+    #last {
+    }
+  }
+}
+// ********************
+// #footer
+// ********************
+#footer {
+}
+     
