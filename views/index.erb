@@ -9,12 +9,14 @@
   </dl>
 </div>
 
-<div id="controller">
-  <ul>
-    <li id="first"><a href="#">&lt;&lt;</a></li>
-    <li id="prev"><a href="#">&lt;</a></li>
-    <li id="goto"><input id="gotoBox" type="text" size="2"></li>
-    <li id="next"><a href="#">&gt;</a></li>
-    <li id="last"><a href="#">&gt;&gt;</a></li>
-  </ul>
-</div>
+<% if is_owner %>
+  <div id="controller">
+    <ul>
+      <li id="first"><a href="#">&lt;&lt;</a></li>
+      <li id="prev"><a href="#">&lt;</a></li>
+      <li id="goto"><input id="gotoBox" type="text" size="2"></li>
+      <li id="next"><a href="#">&gt;</a></li>
+      <li id="last"><a href="#">&gt;&gt;</a></li>
+    </ul>
+  </div>
+<% end %>

@@ -27,8 +27,9 @@
             <input type="search" id="search" name="slide_id" placeholder="Slide ID" value="<%=h slide_id.presence %>">
           </form>
           <ul id="memberList">
-            <li class="owner">@satococoa</li>
-            <li>@saucerjp</li>
+            <% members.each_with_index do |user, i| %>
+              <li<%=' class="owner"' if i==0 %>>@<%=h user.nickname %></li>
+            <% end %>
           </ul>
         <% else %>
           <a id="login" href="/auth/twitter">twitter</a>
