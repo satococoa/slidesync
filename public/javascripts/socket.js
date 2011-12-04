@@ -5,8 +5,8 @@ $(function() {
   };
   
   var pusher = new Pusher(window.pusher_key);
-  var channel = pusher.subscribe('test_channel');
-  channel.bind('my_event', function(data) {
-    alert(data);
+  var channel = pusher.subscribe(window.slide_id);
+  channel.bind('jump_to', function(page) {
+    jumpTo(page);
   });
 });
