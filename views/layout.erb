@@ -24,7 +24,7 @@
         <% if logged_in? %>
           <%=h current_user.nickname %>
           <form method="post" action="/slide">
-            <input type="search" id="search" name="slide_id" placeholder="Slide ID">
+            <input type="search" id="search" name="slide_id" placeholder="Slide ID" value="<%=h slide_id.presence %>">
           </form>
           <ul id="memberList">
             <li class="owner">@satococoa</li>

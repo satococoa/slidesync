@@ -122,11 +122,11 @@ get '/slide/:slide_id' do
   # members = room.members
 
   # slideの情報やユーザーの情報を取得してviewに渡す
-  erb :index, locals: {slide:
-                       {id: slide['ID'],
-                        doc: slide['PPTLocation'],
-                        title: slide['Title'],
-                        desc: slide['Description']}}
+  erb :index, locals: {slide_id: slide_id,
+                       slide: {id: slide['ID'],
+                               doc: slide['PPTLocation'],
+                               title: slide['Title'],
+                               desc: slide['Description']}}
 end
 
 get '/auth/twitter/callback' do
