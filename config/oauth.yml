@@ -1,0 +1,9 @@
+development:
+  twitter:
+    key: A6cjOKvKul4jxjwlCTxGw
+    secret: IKHPB1uplQyyMsNYuWTHT2TTbekGR9lLoiili35vt9Y
+
+production:
+  twitter:
+    key: j4DeS7KiOa7AK8LGlP36mg
+    secret: I4ISDBDkkWtM7nIkbsuIWeE3kZIisdA7blOrXgnc

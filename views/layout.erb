@@ -18,6 +18,20 @@
       <!-- header -->
       <div id="header">
       </div>
+
+      <!-- sidebar -->
+      <div id="sidebar">
+        <% if logged_in? %>
+          <input type="search" id="search" placeholder="Slide ID">
+          <ul id="memberList">
+            <li class="owner">@satococoa</li>
+            <li>@saucerjp</li>
+          </ul>
+        <% else %>
+          <a id="login" href="/auth/twitter">twitter</a>
+        <% end %>
+      </div>
+
       <!-- main -->
       <div id="main">
 
