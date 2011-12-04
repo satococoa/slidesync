@@ -149,27 +149,36 @@ body {
 // ********************
 // #sidebar
 // ********************
+$sidebarMargin:0 10px;
 #sidebar {
+  color:#333;
   float:left;
   width:200px;
   height:100%;
   background:#999;
   @include box-shadow-inset( -1px 0 5px #000 );
 
+  & > div {
+    margin:$sidebarMargin;
+    padding:1em 0;
+  }
+
   // login
   #login {
   }
   // search
   #search {
+    color:#333;
   }
   // memberList
   #memberList {
-    height:100%;
     overflow-y:auto;
     overflow-x:hidden;
-    position:absolute;
-    top:2em;
-    bottom:2.5em;
+    margin:$sidebarMargin;
+    //height:100%;
+    //position:absolute;
+    //top:2em;
+    //bottom:2.5em;
   }
   // owner
   .owner {

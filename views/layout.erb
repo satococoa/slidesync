@@ -24,16 +24,20 @@
       <!-- sidebar -->
       <div id="sidebar">
         <% if logged_in? %>
-          <%=h current_user.nickname %>
-          <form method="post" action="/slide">
-            <input type="search" id="search" name="slide_id" placeholder="Slide ID" value="<%=h slide_id.presence %>">
-          </form>
+          <%#h current_user.nickname %>
+          <div>
+            <form method="post" action="/slide">
+              <input type="search" id="search" name="slide_id" placeholder="Slide ID" value="<%=h slide_id.presence %>">
+            </form>
+          </div>
           <ul id="memberList">
             <li class="owner">@satococoa</li>
             <li>@saucerjp</li>
           </ul>
         <% else %>
-          <a id="login" href="/auth/twitter">twitter</a>
+          <div>
+            <a id="login" href="/auth/twitter">twitter</a>
+          </div>
 
 
           <ul id="memberList">
