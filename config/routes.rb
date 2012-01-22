@@ -1,5 +1,6 @@
 Slidesync::Application.routes.draw do
-  get "rooms/index"
+  resources :rooms, :only => :index
+  root :to => 'rooms#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
