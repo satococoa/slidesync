@@ -1,0 +1,305 @@
+@charset "UTF-8";
+
+// import YUI
+@import "reset"; // _reset.scssの読み込み
+@import "base"; // _base.scssの読み込み
+
+// style.scss Document
+@import "app_mixin"; // _app_mixin.scssの読み込み
+
+/*!
+ * author: 
+ * url   : 
+ */
+
+// ********************
+// $
+// ********************
+$web-font: 'Ubuntu', sans-serif;
+$color:#b7b8b8;
+
+// ********************
+// mixin
+// ********************
+@mixin input-bg-style {
+  @include box-shadow-inset( 0 0 5px #000 );
+  @include border-radius( 2px );
+  background:#0f1011;
+  border-bottom:1px solid #333434;
+}
+@mixin button-bg-style {
+  @include linear-gradient( #191c1d #121212 );
+  @include border-radius( 2px );
+  @include box-shadow( 0 1px 4px #000 );
+  padding:0.1em 1em;
+  border-top:1px solid #333434;
+  border-bottom:1px solid #121212;
+}
+@mixin button-bg-style-hover {
+  //@include box-shadow( 0 0 0 #000 );
+  border-top:0;
+  padding:0.2em 1em;
+  text-decoration:none;
+  color:#666;
+  @include input-bg-style;
+}
+
+// ********************
+// default
+// ********************
+html,
+body {
+  width:100%;
+  height:100%;
+}
+body,
+pre,
+button,
+input,
+select,
+label,
+textarea {
+  color:#fff;
+  font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS UI Gothic',sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+ul,
+ol {
+  margin:0;
+}
+li {
+  list-style-type:none;
+  padding:0;
+}
+dl,
+dt,
+dd {
+  margin:0;
+  padding:0;
+}
+// ********************
+// @ Anchor
+// ********************
+a,
+address a { // リンク
+  outline:none;
+  text-decoration:none;
+  color:#fff; // 彩度の低いリンク色
+}
+a:hover,
+address a:hover { // マウスオーバー時
+  text-decoration:underline;
+  color:#0bf; // 爽やかなリンク色
+}
+a:focus { // tabキーで選択時 except IE6,7 safari
+  text-decoration:underline;
+  color:#000;
+  //background-color:#8cf!important;
+  outline:1px solid #8cf!important;
+  outline-offset:-2px; // except IE
+}
+// ********************
+// body
+// ********************
+body {
+  color:#fff;
+  font-family: $web-font;
+  overflow:hidden;
+  background: {
+    image:url(<%= asset_data_uri 'stage_bg.png' %>);
+    repeat:repeat;
+    position:0 0;
+  }
+}
+// ********************
+// #container
+// ********************
+#container {
+  height:100%;
+}
+// ********************
+// #header
+// ********************
+#headerIframe {
+  position:fixed;
+  z-index:99;
+  bottom:0;
+  width:100%;
+  height:40px;
+}
+#header {
+  position:fixed;
+  z-index:100;
+  bottom:0;
+  width:100%;
+  background:#222;
+  padding:0.5em;
+  border-top:1px solid #2a2a2a;
+  @include box-shadow( 0 -2px 10px #000 );
+  @include linear-gradient( #191c1d #121212 );
+  box-sizing:border-box;
+  overflow:hidden;
+  text-align:center;
+
+  #logo {
+    display:inline-block;
+    //float:right;
+
+    letter-spacing:0.1em;
+    font-size:0.9em;
+    padding:0.25em 0.7em;
+    color:$color;
+    @include input-bg-style;
+  }
+}
+// ********************
+// #sidebar
+// ********************
+$sidebarMargin:0 10px;
+#sidebar {
+  float:left;
+  width:200px;
+  height:100%;
+  background:rgba( 255,255,255,0.1 );
+  @include box-shadow-inset( -1px 0 5px #000 );
+
+  & > div {
+    margin:$sidebarMargin;
+    padding:1em 0;
+  }
+
+  // login
+  #login {
+    display:block;
+    text-align:center;
+    padding:1em !important;
+    @include button-bg-style;
+    &:hover {
+      @include button-bg-style-hover;
+    }
+  }
+  // search
+  #search {
+    width:100%;
+    color:#333;
+  }
+  // memberList
+  #memberList {
+    font-size:0.8em;
+    overflow-y:auto;
+    overflow-x:hidden;
+    margin:$sidebarMargin;
+    //height:100%;
+    //position:absolute;
+    //top:2em;
+    //bottom:2.5em;
+    li {
+      padding:1em 0;
+      border-top:1px solid #666;
+      border-bottom:1px solid #222;
+    }
+  }
+  // owner
+  .owner {
+  }
+}
+// ********************
+// #main
+// ********************
+#main {
+
+  // ********************
+  // #stage
+  // ********************
+  #stage {
+    overflow:hidden;
+    padding:2em;
+
+    // ********************
+    // #slide
+    // ********************
+    #wrapSlide {
+      overflow:hidden;
+      float:left;
+      width:600px;
+      height:462px;
+      @include box-shadow( 0 1px 10px #000 );
+    }
+    #slide {
+      width:600px;
+      height:500px;
+      background:#ccc;
+    }
+
+    dl {
+      margin-left:39em;
+      dd {
+        margin-bottom:1em;
+      }
+      dt {
+      }
+    }
+  }
+  // ********************
+  // #controller
+  // ********************
+  #controllerIframe {
+    position:absolute;
+    right:2em;
+    bottom:4em;
+    height:27px;
+    width:294px;
+  }
+  #controller {
+    position:absolute;
+    right:2em;
+    bottom:4em;
+
+
+    a {
+      @include button-bg-style;
+      display:block;
+      color:$color;
+
+      &:hover {
+        @include button-bg-style-hover;
+      }
+    }
+
+    #first,
+    #prev,
+    #goto,
+    #next,
+    #last {
+      display:inline-block;
+      padding:0 0.25em;
+    }
+
+    #first {
+    }
+    #prev {
+    } 
+    #goto {
+      #gotoBox {
+        border-style:none;
+        @include input-bg-style;
+        padding:0.1em 0.25em;
+        width:3em;
+        text-align:center;
+      }
+    }
+    #next {
+    }
+    #last {
+    }
+  }
+}
+// ********************
+// #footer
+// ********************
+#footer {
+}
+     

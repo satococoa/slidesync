@@ -1,14 +1,69 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Slidesync</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<!--[if lt IE 7 ]> <html lang="ja" class="ie6 ie"> <![endif]-->
+<!--[if IE 7 ]> <html lang="ja" class="ie7 ie"> <![endif]-->
+<!--[if IE 8 ]> <html lang="ja" class="ie8 ie"> <![endif]-->
+<!--[if IE 9 ]> <html lang="ja" class="ie9 ie"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="jn"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>slidesync</title>
+    <meta name="keywords" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- IEの表示モード -->
+    <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:500,700' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <!-- javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script src="http://js.pusherapp.com/1.9/pusher.min.js"></script>
+    <script>
+      window.pusher_key = '<%= 'pusher key' %>';
+      window.slide_doc  = '<%= 'slide doc' %>';
+      window.slide_id   = '<%= 'slide id' %>';
+    </script>
+  </head>
+  <body>
+    <!-- container -->
+    <div id="container">
+      <iframe id="headerIframe" frameborder="0"></iframe>
+      <!-- header -->
+      <div id="header">
+        <span id="logo">Slide sync.</span>
+      </div>
 
-<%= yield %>
+      <!-- sidebar -->
+      <div id="sidebar">
+        <% if true %>
+          <%#h current_user.nickname %>
+          <div>
+            <form method="post" action="/slide">
+              <input type="search" id="search" name="slide_id" placeholder="Slide ID" value="">
+            </form>
+          </div>
+          <ul id="memberList">
+            <% (members = []).each_with_index do |user, i| %>
+              <li id="<%=h user.nickname %>"<%=' class="owner"' if i==0 %>>
+                @<%=h user.nickname %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div>
+            <a id="login" href="/auth/twitter">twitter login</a>
+          </div>
+        <% end %>
+      </div>
 
-</body>
+      <!-- main -->
+      <div id="main">
+
+        <%= yield %>
+
+      </div>
+      <!-- footer -->
+      <div id="footer">
+      </div>
+    </div>
+  </body>
 </html>
