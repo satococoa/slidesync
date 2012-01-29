@@ -1,11 +1,15 @@
 class SessionsController < ApplicationController
   def create
-    logger.info auth_hash
+    user = User.find_or_create_by_auth_hash(auth_hash)
+    if user.present?
+      session[:user_id] = user.id
+    end
     redirect_to :root
   end
 
   def destroy
     session.clear
+    redirect_to :root
   end
 
   private

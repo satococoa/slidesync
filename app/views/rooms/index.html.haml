@@ -7,6 +7,12 @@
     %dt description
     %dd='slide description'
 
+  - if logged_in?
+    %p="こんにちは#{current_user.name}さん"
+  - else
+    %p=link_to('Twitterログイン', '/auth/twitter')
+
+
 - if true # オーナーだけ
   %iframe#controllerIframe{frameborder: 0}
   #controller
