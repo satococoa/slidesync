@@ -1,5 +1,10 @@
 class RoomsController < ApplicationController
   def index
-    # @slides = Slideshare.search(params[:keyword])
+    if params[:keyword].present?
+      slideshare = Slideshare.search(params[:keyword])
+      @slides = slideshare.slides
+    else
+      @slides = []
+    end
   end
 end

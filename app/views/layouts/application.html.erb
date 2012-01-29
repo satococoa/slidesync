@@ -40,10 +40,13 @@
               <%= search_field_tag :keyword, params[:keyword], placeholder: 'keyword' %>
             <% end %>
           </div>
-          <ul id="memberList">
-            <% (members = []).each_with_index do |user, i| %>
-              <li id="<%=h user.nickname %>"<%=' class="owner"' if i==0 %>>
-                @<%=h user.nickname %>
+          <ul id="slidesList">
+            <% @slides.each do |slide| %>
+              <li>
+                <span><%=slide.ID%></span>
+                <img src="<%=slide.ThumbnailSmallURL%>">
+                <span><%=slide.Title%></span>
+                <span><%=slide.Username%></span>
               </li>
             <% end %>
           </ul>
