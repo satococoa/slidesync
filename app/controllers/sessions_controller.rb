@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def create
     logger.info auth_hash
+    redirect_to :root
   end
 
   def destroy
