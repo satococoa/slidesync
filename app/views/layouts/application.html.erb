@@ -34,7 +34,7 @@
 
       <!-- sidebar -->
       <div id="sidebar">
-        <% if true %>
+        <% if logged_in? %>
           <%#h current_user.nickname %>
           <div>
             <form method="post" action="/slide">
@@ -50,7 +50,7 @@
           </ul>
         <% else %>
           <div>
-            <a id="login" href="/auth/twitter">twitter login</a>
+            <%= link_to 'twitter login', '/auth/twitter', id: 'login' %>
           </div>
         <% end %>
       </div>
