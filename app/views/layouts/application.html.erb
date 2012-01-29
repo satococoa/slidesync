@@ -35,11 +35,10 @@
       <!-- sidebar -->
       <div id="sidebar">
         <% if logged_in? %>
-          <%#h current_user.nickname %>
           <div>
-            <form method="post" action="/slide">
-              <input type="search" id="search" name="slide_id" placeholder="Slide ID" value="">
-            </form>
+            <%= form_tag :rooms, method: 'get' do %>
+              <%= search_field_tag :keyword, params[:keyword], placeholder: 'keyword' %>
+            <% end %>
           </div>
           <ul id="memberList">
             <% (members = []).each_with_index do |user, i| %>
