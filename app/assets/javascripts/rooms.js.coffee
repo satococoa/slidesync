@@ -51,14 +51,19 @@ class Room
     @slide = new Slide($slide_el.data('id'), $slide_el.data('doc'))
 
     $('#first').click (e) =>
+      e.preventDefault()
       @publishJumpTo 1
     $('#prev').click (e) =>
+      e.preventDefault()
       @publishJumpTo @slide.currentPage() - 1
     $('#next').click (e) =>
+      e.preventDefault()
       @publishJumpTo @slide.currentPage() + 1
     $('#last').click (e) =>
+      e.preventDefault()
       @publishJumpTo 'last'
     $('#gotoBox').keyup (e) =>
+      e.preventDefault()
       if e.keyCode is 13
         @publishJumpTo $('#gotoBox').val()
 
