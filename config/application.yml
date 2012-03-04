@@ -1,0 +1,25 @@
+defaults: &defaults
+  secret_token: b68184f12610f48b3620ad34180674350e31e45d6b7a5d6d2a149de7317061d625da62b6872374ebb33db58981907f184d3f295c042095afef1fd245519e66c1
+  slideshare:
+    key: geNj3HpL
+    secret: glLw2TOW
+  twitter:
+    key: A6cjOKvKul4jxjwlCTxGw
+    secret: IKHPB1uplQyyMsNYuWTHT2TTbekGR9lLoiili35vt9Y
+
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  secret_token: <%= ENV['SECRET_TOKEN'] %>
+  slideshare:
+    key: <%= ENV['SLIDESHARE_KEY'] %>
+    secret: <%= ENV['SLIDESHARE_SECRET'] %>
+  twitter:
+    key: <%= ENV['TWITTER_KEY'] %>
+    secret: <%= ENV['TWITTER_SECRET'] %>
