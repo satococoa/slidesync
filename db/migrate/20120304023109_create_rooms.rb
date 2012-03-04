@@ -1,7 +1,7 @@
 class CreateRooms < ActiveRecord::Migration
   def change
     create_table :rooms do |t|
-      t.references :user_id
+      t.references :user
       t.string :slide_id
       t.string :title
       t.string :thumbnail
@@ -11,6 +11,6 @@ class CreateRooms < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :rooms, :user_id_id
+    add_index :rooms, :user_id
   end
 end
