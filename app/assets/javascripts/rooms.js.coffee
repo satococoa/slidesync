@@ -119,5 +119,5 @@ jQuery ->
     room.adjustMemberListHeight()
 
   channel.bind 'exit', (user) ->
-    $('#memberList').find("#guest_#{user.id}").remove()
+    $('#usersList').find("#guest_#{user.id}").remove()
     room.adjustMemberListHeight()

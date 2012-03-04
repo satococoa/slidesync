@@ -18,7 +18,7 @@ class RoomsController < ApplicationController
         title: @slide.title,
         thumbnail: @slide.thumbnail,
         username: @slide.username,
-        url: @slide.doc,
+        slide_url: @slide.doc,
         description: @slide.description
       )
       redirect_to @room
@@ -31,6 +31,9 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     if current_user != @room.user && !@room.guests.include?(current_user)
+      if current_user.room.present?
+        Pusher["room_#{current_user.room.id}"].trigger('exit', current_user)
+      end
       @room.guests << current_user
       Pusher["room_#{@room.id}"].trigger('enter', current_user)
     end
