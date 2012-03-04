@@ -5,14 +5,14 @@
         =search_field_tag :keyword, params[:keyword], placeholder: 'keyword'
     %ul#slidesList
       - @slides.each do |slide|
-        =content_tag :li, class: 'slide', id: "slide_#{slide.ID}" do
+        =content_tag :li, class: 'slide', id: "slide_#{slide.id}" do
           %div.thumbnail
-            =image_tag(slide.ThumbnailSmallURL)
+            =image_tag(slide.thumbnail)
           %div.info
-            %span.title=slide.Title
-            =link_to "by #{slide.Username}", "http://www.slideshare.net/#{slide.Username}", class: 'username'
+            %span.title=slide.title
+            =link_to "by #{slide.username}", "http://www.slideshare.net/#{slide.username}", class: 'username'
           =form_tag :rooms, method: 'post' do
-            =hidden_field_tag 'slide_id', slide.ID
+            =hidden_field_tag 'slide_id', slide.id
             =submit_tag 'ルームを作成'
           %hr
   - else

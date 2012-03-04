@@ -12,22 +12,30 @@ class Slideshare
       method = 'search_slideshows'
       result = query(method, q: keyword, page: page, detailed: 1)
       res = result['Slideshows']
-      slides = res['Slideshow'].presence || []
+      slides = res['Slideshow'].map{|slide| parse_slide(slide)} || []
       meta = res['Meta']
       results = meta['NumResults']
       total = meta['TotalResults']
-      Hashie::Mash.new(slides: slides, results: results, total: total.to_i, page: page)
+      Hashie::Mash.new(slides: slides.tapp, results: results, total: total.to_i, page: page)
     end
 
     def find(id)
       # 使いそうな属性はID, Title, ThumbnailSmallURL, Username, PPTLocation
       method = 'get_slideshow'
       result = query(method, slideshow_id: id, detailed: 1)
-      slide = result['Slideshow'].presence || nil
+      slide = parse_slide(result['Slideshow']) || nil
       Hashie::Mash.new(slide)
     end
 
     private
+    def parse_slide(slide)
+      {id: slide['ID'],
+       title: slide['Title'],
+       thumbnail: slide['ThumbnailSmallURL'],
+       username: slide['Username'],
+       doc: slide['PPTLocation']
+      }
+    end
     def query(method, options)
       url = BASE_URL+method
       query = options.merge(essential_queries)
