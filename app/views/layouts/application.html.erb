@@ -20,7 +20,7 @@
   </head>
   <body>
     <!-- container -->
-    <%=content_tag :div, id: 'container', data: {pusher_key: 'pusher key'} do %>
+    <%=content_tag :div, id: 'container', data: {pusher_key: Pusher.key} do %>
       <iframe id="headerIframe" frameborder="0"></iframe>
       <!-- header -->
       <div id="header">

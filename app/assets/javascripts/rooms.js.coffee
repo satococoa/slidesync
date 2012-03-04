@@ -26,7 +26,7 @@ class Slide
       @flashvars,
       @params,
       @atts,
-      -> @flashMovie = document.getElementById('slide')
+      => @flashMovie = document.getElementById('slide')
     )
 
   # Jump to the appropriate slide
@@ -52,9 +52,9 @@ class Room
     $('#first').click (e) =>
       @publishJumpTo 1
     $('#prev').click (e) =>
-      @publishJumpTo room.slide.currentPage() - 1
+      @publishJumpTo @slide.currentPage() - 1
     $('#next').click (e) =>
-      @publishJumpTo room.slide.currentPage() + 1
+      @publishJumpTo @slide.currentPage() + 1
     $('#last').click (e) =>
       @publishJumpTo 'last'
     $('#gotoBox').keyup (e) =>
@@ -64,9 +64,10 @@ class Room
   # publish page move
   publishJumpTo: (page) ->
     url = "/rooms/#{@id}"
-    $.put(
+    $.post(
       url,
       data:
+        _method: 'PUT'
         page: page
     )
 
@@ -95,7 +96,7 @@ jQuery ->
   Pusher.log = (message) ->
     window.console?.log? message
   
-  pusher = new Pusher($('#container').data('pusher_key'))
+  pusher = new Pusher($('#container').data('pusher-key'))
   channel = pusher.subscribe(room.id)
 
   # events

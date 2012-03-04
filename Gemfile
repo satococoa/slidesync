@@ -26,6 +26,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'httpclient'
 gem 'settingslogic'
+gem 'pusher'
 
 group :development, :test do
   gem 'rspec-rails'
