@@ -30,8 +30,10 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    # NOT IMPLEMENTED!!
-    @guests = []
+    if current_user != @room.user && !@room.guests.include?(current_user)
+      @room.guests << current_user
+      Pusher["room_#{@room.id}"].trigger('enter', current_user)
+    end
   end
 
   def update

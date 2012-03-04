@@ -109,13 +109,13 @@ jQuery ->
     room.slide.jumpTo page
 
   channel.bind 'enter', (user) ->
-    $members = $('#memberList')
+    $usersList = $('#usersList')
     $userItem = $('<li/>').attr(id: "guest_#{user.id}", class: 'guest')
     $userItem.append(
       $('<img/>').attr(src: user.icon_url)
     ).append(
       user.nickname
-    ).appendTo($members)
+    ).appendTo($usersList)
     room.adjustMemberListHeight()
 
   channel.bind 'exit', (user) ->

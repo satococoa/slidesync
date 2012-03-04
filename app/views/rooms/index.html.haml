@@ -14,7 +14,6 @@
           =form_tag :rooms, method: 'post' do
             =hidden_field_tag 'slide_id', slide.id
             =submit_tag 'ルームを作成'
-          %hr
   - else
     =link_to 'twitter login', '/auth/twitter', id: 'login'
 
