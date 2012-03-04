@@ -12,7 +12,7 @@ class Slideshare
       method = 'search_slideshows'
       result = query(method, q: keyword, page: page, detailed: 1)
       res = result['Slideshows']
-      slides = res['Slideshow'].map{|slide| parse_slide(slide)} || []
+      slides = res['Slideshow'].map{|slide| parse_slide(slide)}
       meta = res['Meta']
       results = meta['NumResults']
       total = meta['TotalResults']
@@ -23,7 +23,8 @@ class Slideshare
       # 使いそうな属性はID, Title, ThumbnailSmallURL, Username, PPTLocation
       method = 'get_slideshow'
       result = query(method, slideshow_id: id, detailed: 1)
-      slide = parse_slide(result['Slideshow']) || nil
+      raise 'There is no slide with specified id.' if result['Slideshow'].nil?
+      slide = parse_slide(result['Slideshow'])
       Hashie::Mash.new(slide)
     end
 
