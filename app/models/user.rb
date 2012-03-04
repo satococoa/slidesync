@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   
   def self.find_or_create_by_auth_hash(auth)
     user = User.find_or_create_by_provider_and_uid(auth['provider'], auth['uid'])
-    auth.tapp
     user.update_attributes(
       name: auth['info']['name'],
       nickname: auth['info']['nickname'],
