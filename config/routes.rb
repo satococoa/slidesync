@@ -2,7 +2,7 @@ Slidesync::Application.routes.draw do
   match '/auth/:provider/callback', to: 'sessions#create', as: 'login'
   match '/logout', to: 'sessions#destroy', as: 'logout'
 
-  resources :rooms, :only => :index
+  resources :rooms, :only => [:index, :create, :show, :destroy]
   root :to => 'rooms#index'
 
   # The priority is based upon order of creation:
