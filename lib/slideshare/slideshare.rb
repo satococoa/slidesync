@@ -16,7 +16,7 @@ class Slideshare
       meta = res['Meta']
       results = meta['NumResults']
       total = meta['TotalResults']
-      Hashie::Mash.new(slides: slides.tapp, results: results, total: total.to_i, page: page)
+      Hashie::Mash.new(slides: slides, results: results, total: total.to_i, page: page)
     end
 
     def find(id)
@@ -33,7 +33,8 @@ class Slideshare
        title: slide['Title'],
        thumbnail: slide['ThumbnailSmallURL'],
        username: slide['Username'],
-       doc: slide['PPTLocation']
+       doc: slide['PPTLocation'],
+       description: slide['Description']
       }
     end
     def query(method, options)
