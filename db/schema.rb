@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304023109) do
+ActiveRecord::Schema.define(:version => 20120304030514) do
 
   create_table "rooms", :force => true do |t|
     t.integer  "user_id"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20120304023109) do
     t.string   "title"
     t.string   "thumbnail"
     t.string   "username"
-    t.string   "url"
+    t.string   "slide_url"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
