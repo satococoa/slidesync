@@ -104,6 +104,7 @@ jQuery ->
   pusher = new Pusher($('#container').data('pusher-key'))
   channel = pusher.subscribe("room_#{room.id}")
 
+
   # events
   channel.bind 'jump_to', (page) ->
     room.slide.jumpTo page
@@ -121,3 +122,7 @@ jQuery ->
   channel.bind 'exit', (user) ->
     $('#usersList').find("#guest_#{user.id}").remove()
     room.adjustMemberListHeight()
+
+  channel.bind 'close', (user) ->
+    alert 'ルームが削除されました'
+    location.href = '/'

@@ -40,8 +40,15 @@ class RoomsController < ApplicationController
   end
 
   def update
-    @room = Room.find(params[:id])
+    @room = current_user.rooms.find(params[:id])
     Pusher["room_#{@room.id}"].trigger('jump_to', params[:page])
     head :ok
+  end
+
+  def destroy
+    @room = current_user.rooms.find(params[:id])
+    @room.destroy
+    Pusher["room_#{@room.id}"].trigger('close', current_user)
+    redirect_to :rooms
   end
 end

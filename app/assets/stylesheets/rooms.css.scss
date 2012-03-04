@@ -1,13 +1,14 @@
 // Place all the styles related to the rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+input[type=submit] {
+  color: #333;
+}
+
 #slidesList {
   margin: 10px;
   .info {
     font-size: 80%;
-  }
-  input[type=submit] {
-    color: #333;
   }
 }
 
@@ -21,4 +22,3 @@
     }
   }
 }
-   
