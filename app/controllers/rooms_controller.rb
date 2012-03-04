@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  before_filter :require_login, except: :index
+
   def index
     if params[:keyword].present?
       slideshare = Slideshare.search(params[:keyword])
@@ -28,5 +30,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+    # NOT IMPLEMENTED!!
+    @guests = []
   end
 end

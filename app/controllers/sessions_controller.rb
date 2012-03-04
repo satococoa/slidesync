@@ -4,7 +4,13 @@ class SessionsController < ApplicationController
     if user.present?
       session[:user_id] = user.id
     end
-    redirect_to :root
+    if session[:redirect_to].present?
+      url = session[:redirect_to]
+      session.delete(:redirect_to)
+      redirect_to url
+    else
+      redirect_to :root
+    end
   end
 
   def destroy
