@@ -17,55 +17,21 @@
     <!-- javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script src="http://js.pusherapp.com/1.9/pusher.min.js"></script>
-    <script>
-      window.pusher_key = '<%= 'pusher key' %>';
-      window.slide_doc  = '<%= 'slide doc' %>';
-      window.slide_id   = '<%= 'slide id' %>';
-    </script>
   </head>
   <body>
     <!-- container -->
-    <div id="container">
+    <%=content_tag :div, id: 'container', data: {pusher_key: 'pusher key'} do %>
       <iframe id="headerIframe" frameborder="0"></iframe>
       <!-- header -->
       <div id="header">
         <span id="logo">Slide sync.</span>
       </div>
 
-      <!-- sidebar -->
-      <div id="sidebar">
-        <% if logged_in? %>
-          <div>
-            <%= form_tag :rooms, method: 'get' do %>
-              <%= search_field_tag :keyword, params[:keyword], placeholder: 'keyword' %>
-            <% end %>
-          </div>
-          <ul id="slidesList">
-            <% @slides.each do |slide| %>
-              <li>
-                <span><%=slide.ID%></span>
-                <img src="<%=slide.ThumbnailSmallURL%>">
-                <span><%=slide.Title%></span>
-                <span><%=slide.Username%></span>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <div>
-            <%= link_to 'twitter login', '/auth/twitter', id: 'login' %>
-          </div>
-        <% end %>
-      </div>
+      <%= yield %>
 
-      <!-- main -->
-      <div id="main">
-
-        <%= yield %>
-
-      </div>
       <!-- footer -->
       <div id="footer">
       </div>
-    </div>
+    <% end %>
   </body>
 </html>

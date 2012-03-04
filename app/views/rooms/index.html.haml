@@ -1,23 +1,40 @@
-#stage
-  #wrapSlide
-    #slide
-  %dl
-    %dt title
-    %dd='slide title'
-    %dt description
-    %dd='slide description'
+#sidebar
+  - if logged_in?
+    %div
+      =form_tag :rooms, method: 'get' do
+        =search_field_tag :keyword, params[:keyword], placeholder: 'keyword'
+    %ul#slidesList
+      - @slides.each do |slide|
+        =content_tag :li, class: 'slide', id: "slide_#{slide.ID}", data: {slide_id: slide.ID} do
+          %div.thumbnail
+            =image_tag(slide.ThumbnailSmallURL)
+          %div.title=slide.Title
+          %div.username=slide.Username
+          %hr
+  - else
+    =link_to 'twitter login', '/auth/twitter', id: 'login'
 
-- if true # オーナーだけ
-  %iframe#controllerIframe{frameborder: 0}
-  #controller
-    %ul
-      %li#first
-        %a{href: '#'} &lt;&lt;
-      %li#prev
-        %a{href: '#'} &lt;
-      %li#goto
-        %input#gotoBox{type: 'text', size: '2'}
-      %li#next
-        %a{href: '#'} &gt;
-      %li#last
-        %a{href: '#'} &gt;&gt;
+#main
+  #stage
+    #wrapSlide
+      #slide{data: {id: 'slide id', doc: 'slide doc'}}
+    %dl
+      %dt title
+      %dd='slide title'
+      %dt description
+      %dd='slide description'
+  
+  - if true # オーナーだけ
+    %iframe#controllerIframe{frameborder: 0}
+    #controller
+      %ul
+        %li#first
+          %a{href: '#'} &lt;&lt;
+        %li#prev
+          %a{href: '#'} &lt;
+        %li#goto
+          %input#gotoBox{type: 'text', size: '2'}
+        %li#next
+          %a{href: '#'} &gt;
+        %li#last
+          %a{href: '#'} &gt;&gt;
