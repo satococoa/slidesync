@@ -12,7 +12,11 @@ class Slideshare
       method = 'search_slideshows'
       result = query(method, q: keyword, page: page, detailed: 1)
       res = result['Slideshows']
-      slides = res['Slideshow'].map{|slide| parse_slide(slide)}
+      if res['Slideshow'].present?
+        slides = res['Slideshow'].map{|slide| parse_slide(slide)}
+      else
+        slides = []
+      end
       meta = res['Meta']
       results = meta['NumResults']
       total = meta['TotalResults']

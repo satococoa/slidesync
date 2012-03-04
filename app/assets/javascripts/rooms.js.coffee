@@ -44,8 +44,6 @@ class Slide
 
 class Room
   constructor: (room) ->
-    @adjustMemberListHeight()
-
     @id = room.id
     $slide_el = $('#slide')
     @slide = new Slide($slide_el.data('id'), $slide_el.data('doc'))
@@ -76,24 +74,10 @@ class Room
       page: page
     )
 
-  # adjustMemberListHeight
-  adjustMemberListHeight: ->
-    $sidebar = $('#sidebar')
-    $memberList = $('#memberList')
-  
-    setHeight = ->
-      winHeight      = $(window).height()
-      headerHeight   = $('#header').outerHeight()
-      searchAndLogin = $sidebar.find('div:first').outerHeight()
-      listHeight     = winHeight - headerHeight - searchAndLogin
-      $memberList.css(
-        height: listHeight + 'px'
-      )
-    setHeight()
-  
-    $(window).resize -> setHeight()
 
 jQuery ->
+  return null if !$('#stage').data('room')
+
   room = new Room($('#stage').data('room'))
   room.slide.loadPlayer()
 
@@ -117,11 +101,9 @@ jQuery ->
     ).append(
       user.nickname
     ).appendTo($usersList)
-    room.adjustMemberListHeight()
 
   channel.bind 'exit', (user) ->
     $('#usersList').find("#guest_#{user.id}").remove()
-    room.adjustMemberListHeight()
 
   channel.bind 'close', (user) ->
     alert 'ルームが削除されました'

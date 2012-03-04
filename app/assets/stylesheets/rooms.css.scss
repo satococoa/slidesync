@@ -5,8 +5,16 @@ input[type=submit] {
   color: #333;
 }
 
-#slidesList, #roomsList {
+#slidesList, #roomsList, #usersList {
+  overflow: auto;
   margin: 10px;
+  height: 85%;
+  li {
+    margin-bottom: 20px;
+  }
+}
+
+#slidesList, #roomsList {
   .info {
     font-size: 80%;
   }
@@ -14,7 +22,6 @@ input[type=submit] {
 
 #usersList {
   .owner, .guest {
-    margin: 10px;
     img {
       width: 20px;
       height: 20px;
