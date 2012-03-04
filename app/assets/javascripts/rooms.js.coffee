@@ -35,6 +35,7 @@ class Slide
       @flashMovie.last()
     else
       @flashMovie.jumpTo(page)
+    $('#gotoBox').val(@currentPage())
 
   # Update the slide number in the field for the same
   currentPage: ->
@@ -66,9 +67,8 @@ class Room
     url = "/rooms/#{@id}"
     $.post(
       url,
-      data:
-        _method: 'PUT'
-        page: page
+      _method: 'put',
+      page: page
     )
 
   # adjustMemberListHeight
@@ -97,7 +97,7 @@ jQuery ->
     window.console?.log? message
   
   pusher = new Pusher($('#container').data('pusher-key'))
-  channel = pusher.subscribe(room.id)
+  channel = pusher.subscribe("room_#{room.id}")
 
   # events
   channel.bind 'jump_to', (page) ->

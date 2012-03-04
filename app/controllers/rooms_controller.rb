@@ -33,4 +33,10 @@ class RoomsController < ApplicationController
     # NOT IMPLEMENTED!!
     @guests = []
   end
+
+  def update
+    @room = Room.find(params[:id])
+    Pusher["room_#{@room.id}"].trigger('jump_to', params[:page])
+    head :ok
+  end
 end
