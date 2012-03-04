@@ -6,6 +6,10 @@ defaults: &defaults
   twitter:
     key: A6cjOKvKul4jxjwlCTxGw
     secret: IKHPB1uplQyyMsNYuWTHT2TTbekGR9lLoiili35vt9Y
+  pusher:
+    app_id: 11645
+    key: 252340d370ac6413b2de
+    secret: 1462e48e6db08d21be32
 
 
 development:
@@ -23,3 +27,7 @@ production:
   twitter:
     key: <%= ENV['TWITTER_KEY'] %>
     secret: <%= ENV['TWITTER_SECRET'] %>
+  pusher:
+    app_id: <%= ENV['PUSHER_ID'] %>
+    key: <%= ENV['PUSHER_KEY'] %>
+    secret: <%= ENV['PUSHER_SECRET'] %>
