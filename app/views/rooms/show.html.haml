@@ -15,7 +15,7 @@
     =link_to 'twitter login', '/auth/twitter', id: 'login'
 
 #main
-  #stage
+  = content_tag :div, id: 'stage', data: {room: @room} do
     #wrapSlide
       #slide{data: {id: @room.slide_id, doc: @room.slide_url}}
     %dl
