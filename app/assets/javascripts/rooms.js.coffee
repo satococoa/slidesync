@@ -74,6 +74,22 @@ class Room
       page: page
     )
 
+  add_user: (user) ->
+    $usersList = $('#usersList')
+    if $usersList.data('owner') is parseInt(user.id)
+      className = 'owner'
+    else
+      className = 'guest'
+    $userItem = $('<li/>').attr(id: "user_#{user.id}", class: className)
+    $userItem.append(
+      $('<img/>').attr(src: user.info.icon_url)
+    ).append(
+      user.info.nickname
+    ).appendTo($usersList)
+
+  remove_user: (user) ->
+    $('#usersList').find("#user_#{user.id}").remove()
+
 
 jQuery ->
   return null if !$('#stage').data('room')
@@ -93,18 +109,13 @@ jQuery ->
   channel.bind 'jump_to', (page) ->
     room.slide.jumpTo page
 
-  channel.bind 'enter', (user) ->
-    $usersList = $('#usersList')
-    $userItem = $('<li/>').attr(id: "guest_#{user.id}", class: 'guest')
-    $userItem.append(
-      $('<img/>').attr(src: user.icon_url)
-    ).append(
-      user.nickname
-    ).appendTo($usersList)
+  channel.bind 'pusher:subscription_succeeded', (users) ->
+    users.each (user) ->
+      room.add_user user
 
-  channel.bind 'exit', (user) ->
-    $('#usersList').find("#guest_#{user.id}").remove()
+  channel.bind 'pusher:member_added', (user) ->
+    room.add_user user
 
-  channel.bind 'close', (user) ->
-    alert 'ルームが削除されました'
-    location.href = '/'
+  channel.bind 'pusher:member_removed', (user) ->
+    room.remove_user user
+

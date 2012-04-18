@@ -4,14 +4,7 @@
       =form_tag @room, method: 'delete' do
         =hidden_field_tag :room_id, @room.id
         =submit_tag 'ルームを削除する', confirm: 'OK?'
-  %ul#usersList
-    =content_tag :li, class: 'owner', id: "owner_#{@room.user.id}" do
-      =image_tag(@room.user.icon_url)
-      =@room.user.nickname
-    - @room.guests.each do |guest|
-      =content_tag :li, class: 'guest', id: "guest_#{guest.id}" do
-        =image_tag(guest.icon_url)
-        =guest.nickname
+  %ul#usersList{data: {owner: @room.user.id}}
 
 #main
   = content_tag :div, id: 'stage', data: {room: @room} do

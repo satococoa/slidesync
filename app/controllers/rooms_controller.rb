@@ -32,11 +32,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     if current_user != @room.user && !@room.guests.include?(current_user)
-      if current_user.room.present?
-        Pusher["presence-room-#{current_user.room.id}"].trigger('exit', current_user)
-      end
       @room.guests << current_user
-      Pusher["presence-room-#{@room.id}"].trigger('enter', current_user)
     end
   end
 
@@ -49,7 +45,6 @@ class RoomsController < ApplicationController
   def destroy
     @room = current_user.rooms.find(params[:id])
     @room.destroy
-    Pusher["presence-room-#{@room.id}"].trigger('close', current_user)
     redirect_to :rooms
   end
 
