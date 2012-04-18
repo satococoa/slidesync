@@ -86,7 +86,7 @@ jQuery ->
     window.console?.log? message
   
   pusher = new Pusher($('#container').data('pusher-key'))
-  channel = pusher.subscribe("room_#{room.id}")
+  channel = pusher.subscribe("presence-room-#{room.id}")
 
 
   # events

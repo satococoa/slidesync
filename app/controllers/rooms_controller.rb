@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_filter :require_login, except: :index
+  protect_from_forgery except: :enter # accessed by pusher js library
 
   def index
     if params[:keyword].present?
@@ -32,23 +33,40 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     if current_user != @room.user && !@room.guests.include?(current_user)
       if current_user.room.present?
-        Pusher["room_#{current_user.room.id}"].trigger('exit', current_user)
+        Pusher["presence-room-#{current_user.room.id}"].trigger('exit', current_user)
       end
       @room.guests << current_user
-      Pusher["room_#{@room.id}"].trigger('enter', current_user)
+      Pusher["presence-room-#{@room.id}"].trigger('enter', current_user)
     end
   end
 
   def update
     @room = current_user.rooms.find(params[:id])
-    Pusher["room_#{@room.id}"].trigger('jump_to', params[:page])
+    Pusher["presence-room-#{@room.id}"].trigger('jump_to', params[:page])
     head :ok
   end
 
   def destroy
     @room = current_user.rooms.find(params[:id])
     @room.destroy
-    Pusher["room_#{@room.id}"].trigger('close', current_user)
+    Pusher["presence-room-#{@room.id}"].trigger('close', current_user)
     redirect_to :rooms
+  end
+
+  # POST /pusher/auth
+  # returns JSON
+  def enter
+    if current_user
+      response = Pusher[params[:channel_name]].authenticate(params[:socket_id], {
+        :user_id => current_user.id,
+        :user_info => {
+          :nickname => current_user.nickname,
+          :icon_url => current_user.icon_url
+        }
+      })
+      render :json => response
+    else
+      render text: 'Not authenticated'
+    end
   end
 end

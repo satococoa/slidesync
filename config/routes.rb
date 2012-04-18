@@ -1,6 +1,7 @@
 Slidesync::Application.routes.draw do
   match '/auth/:provider/callback', to: 'sessions#create', as: 'login'
   match '/logout', to: 'sessions#destroy', as: 'logout'
+  post '/pusher/auth', to: 'rooms#enter'
 
   resources :rooms, :only => [:index, :create, :show, :destroy, :update]
   root :to => 'rooms#index'
