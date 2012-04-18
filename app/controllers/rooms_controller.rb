@@ -31,9 +31,6 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    if current_user != @room.user && !@room.guests.include?(current_user)
-      @room.guests << current_user
-    end
   end
 
   def update
