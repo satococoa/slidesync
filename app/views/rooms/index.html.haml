@@ -2,8 +2,11 @@
   - if logged_in?
     %div
       =form_tag :rooms, method: 'get' do
-        =search_field_tag :keyword, params[:keyword], placeholder: 'keyword'
-    - if params[:keyword].present?
+        =search_field_tag :keyword, params[:keyword], placeholder: 'Search'
+      %p OR
+      =form_tag :rooms, method: 'post' do
+        =text_field_tag :slide_url, params[:slide_url], placeholder: 'Slide URL'
+    - if @slides.present?
       %ul#slidesList
         - @slides.each do |slide|
           =content_tag :li, class: 'slide', id: "slide_#{slide.id}" do

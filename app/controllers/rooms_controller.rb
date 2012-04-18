@@ -13,7 +13,11 @@ class RoomsController < ApplicationController
 
   def create
     begin
-      @slide = Slideshare.find(params[:slide_id])
+      if params[:slide_url].present?
+        @slide = Slideshare.find_by_url(params[:slide_url])
+      else
+        @slide = Slideshare.find(params[:slide_id])
+      end
       @room = current_user.rooms.create(
         slide_id: @slide.id,
         title: @slide.title,
